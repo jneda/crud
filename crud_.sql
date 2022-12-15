@@ -57,7 +57,7 @@ CREATE TABLE `t_stagiaire` (
   `idVille` int NOT NULL,
   `mailStagiaire` varchar(20) NOT NULL,
   `idformation` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `t_stagiaire`
