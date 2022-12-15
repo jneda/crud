@@ -34,6 +34,7 @@
           <label for="prenomStagiaire" class="form-label">Prénom du stagiaire</label>
           <input type="text" class="form-control" id="prenomStagiaire" name="prenomStagiaire">
         </div>
+
         <div class="mb-3">
           <p class="form-label">Date de naissance du stagiaire</p>
           <div class="row">
@@ -51,6 +52,7 @@
             </div>
           </div>
         </div>
+
         <div class="mb-3">
           <label for="civiliteStagiaire" class="form-label">Civilité du stagiaire</label>
           <select name="civiliteStagiaire" id="civiliteStagiaire" class="form-select">
@@ -63,6 +65,7 @@
           <label for="adressStagiaire" class="form-label">Adresse du stagiaire</label>
           <input type="text" class="form-control" id="adressStagiaire" name="adressStagiaire">
         </div>
+
         <div class="mb-3">
           <label for="idVille" class="form-label">Ville du stagiaire</label>
           <select name="idVille" id="idVille" class="form-select">
@@ -71,6 +74,7 @@
             <option value=""></option>
           </select>
         </div>
+
         <div class="mb-3">
           <label for="mailStagiaire" class="form-label">Adresse email du stagiaire</label>
           <input type="email" class="form-control" id="mailStagiaire" name="mailStagiaire">
@@ -83,8 +87,11 @@
             <option value=""></option>
           </select>
         </div>
-        <button type="reset" class="btn btn-secondary">Annuler</button>
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+        <div class="mb-3">
+          <button type="reset" class="btn btn-secondary">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
       </form>
     </div>
   </div>
