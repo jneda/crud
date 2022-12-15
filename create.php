@@ -23,8 +23,71 @@
     </div>
   </header>
 
-  <div class="container mt-5">
-    
+  <div class="container my-5">
+    <div class="row">
+      <form action="#" method="POST">
+        <div class="mb-3">
+          <label for="nomStagiaire" class="form-label">Nom du stagiaire</label>
+          <input type="text" class="form-control" id="nomStagiaire" name="nomStagiaire">
+        </div>
+        <div class="mb-3">
+          <label for="prenomStagiaire" class="form-label">Prénom du stagiaire</label>
+          <input type="text" class="form-control" id="prenomStagiaire" name="prenomStagiaire">
+        </div>
+        <div class="mb-3">
+          <p class="form-label">Date de naissance du stagiaire</p>
+          <div class="row">
+            <div class="col">
+              <label for="jourNaissance" class="form-label">Jour</label>
+              <input type="text" class="form-control" id="jourNaissance" name="jourNaissance">
+            </div>
+            <div class="col">
+              <label for="moisNaissance" class="form-label">Mois</label>
+              <input type="text" class="form-control" id="moisNaissance" name="moisNaissance">
+            </div>
+            <div class="col">
+              <label for="anneeNaissance" class="form-label">Année</label>
+              <input type="text" class="form-control" id="anneeNaissance" name="anneeNaissance">
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="civiliteStagiaire" class="form-label">Civilité du stagiaire</label>
+          <select name="civiliteStagiaire" id="civiliteStagiaire" class="form-select">
+            <option value="" disabled></option>
+            <option value="M.">M.</option>
+            <option value="Mme">Mme</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="adressStagiaire" class="form-label">Adresse du stagiaire</label>
+          <input type="text" class="form-control" id="adressStagiaire" name="adressStagiaire">
+        </div>
+        <div class="mb-3">
+          <label for="idVille" class="form-label">Ville du stagiaire</label>
+          <select name="idVille" id="idVille" class="form-select">
+            <option value="" disabled></option>
+            <option value=""></option>
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="mailStagiaire" class="form-label">Adresse email du stagiaire</label>
+          <input type="email" class="form-control" id="mailStagiaire" name="mailStagiaire">
+        </div>
+        <div class="mb-3">
+          <label for="idFormation" class="form-label">Formation du stagiaire</label>
+          <select name="idFormation" id="idFormation" class="form-select">
+            <option value="" disabled></option>
+            <option value=""></option>
+            <option value=""></option>
+          </select>
+        </div>
+        <button type="reset" class="btn btn-secondary">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </form>
+    </div>
+  </div>
   </div>
 </body>
 
