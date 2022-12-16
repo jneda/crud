@@ -26,6 +26,7 @@
   <div class="container my-5">
     <div class="row">
       <form action="#" method="POST">
+        <!-- Nom et prénom -->
         <div class="mb-3">
           <label for="nomStagiaire" class="form-label">Nom du stagiaire</label>
           <input type="text" class="form-control" id="nomStagiaire" name="nomStagiaire">
@@ -34,7 +35,7 @@
           <label for="prenomStagiaire" class="form-label">Prénom du stagiaire</label>
           <input type="text" class="form-control" id="prenomStagiaire" name="prenomStagiaire">
         </div>
-
+        <!-- Date de naissance -->
         <div class="mb-3">
           <p class="form-label">Date de naissance du stagiaire</p>
           <div class="row">
@@ -52,7 +53,7 @@
             </div>
           </div>
         </div>
-
+        <!-- Civilité et adresse -->
         <div class="mb-3">
           <label for="civiliteStagiaire" class="form-label">Civilité du stagiaire</label>
           <select name="civiliteStagiaire" id="civiliteStagiaire" class="form-select">
@@ -65,7 +66,7 @@
           <label for="adressStagiaire" class="form-label">Adresse du stagiaire</label>
           <input type="text" class="form-control" id="adressStagiaire" name="adressStagiaire">
         </div>
-
+        <!-- Sélection ville -->
         <div class="mb-3">
           <label for="idVille" class="form-label">Ville du stagiaire</label>
           <select name="idVille" id="idVille" class="form-select">
@@ -74,11 +75,12 @@
             <option value=""></option>
           </select>
         </div>
-
+        <!-- Email -->
         <div class="mb-3">
           <label for="mailStagiaire" class="form-label">Adresse email du stagiaire</label>
           <input type="email" class="form-control" id="mailStagiaire" name="mailStagiaire">
         </div>
+        <!-- Sélection formation -->
         <div class="mb-3">
           <label for="idFormation" class="form-label">Formation du stagiaire</label>
           <select name="idFormation" id="idFormation" class="form-select">
@@ -87,7 +89,7 @@
             <option value=""></option>
           </select>
         </div>
-
+        <!-- Boutons -->
         <div class="mb-3">
           <button type="reset" class="btn btn-secondary">Annuler</button>
           <button type="submit" class="btn btn-primary">Enregistrer</button>
