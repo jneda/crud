@@ -1,3 +1,18 @@
+<?php
+
+require_once 'DBConnect.php';
+
+$query = $dbh->prepare('
+  SELECT * FROM t_stagiaire AS S
+  JOIN t_ville as V ON V.idVille = S.idVille
+  JOIN t_formation as F ON F.idFormation = S.idFormation
+  ORDER BY S.idStagiaire
+');
+$query->execute();
+$stagiaires = $query->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,7 +24,7 @@
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- Boostratp icon -->
+  <!-- Boostrap icon -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 
@@ -20,14 +35,16 @@
         Liste des stagiaires
       </h1>
     </div>
+    <a href="create.php" class="btn btn-outline-info ms-auto link-light">Créer un stagiaire</a>
   </header>
 
   <div class="container mt-5">
     <div class="row">
+      <h1>Nombre de stagiaires : <?= count($stagiaires) ?></h1>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col"></th>
+            <th scope="col">Identifiant</th>
             <th scope="col">Nom</th>
             <th scope="col">Prénom</th>
             <th scope="col">Date de naissance</th>
@@ -37,61 +54,34 @@
             <th scope="col">Ville</th>
             <th scope="col">Mail</th>
             <th scope="col">Formation</th>
+            <th scope="col">Acronyme</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Houlala</td>
-            <td>Anthony</td>
-            <td>06/09/2000</td>
-            <td>M.</td>
-            <td>24 rue des Ferrailleurs</td>
-            <td>77000</td>
-            <td>Melun</td>
-            <td>toto77@houlala.org</td>
-            <td>Formateur pour adultes</td>
-            <td>
-              <a href="#" class="btn btn-outline-primary"><i class="bi bi-eye"></i></a>
-              <a href="#" class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
-              <a href="#" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Houlala</td>
-            <td>Anthony</td>
-            <td>06/09/2000</td>
-            <td>M.</td>
-            <td>24 rue des Ferrailleurs</td>
-            <td>77000</td>
-            <td>Melun</td>
-            <td>toto77@houlala.org</td>
-            <td>Formateur pour adultes</td>
-            <td>
-              <a href="#" class="btn btn-outline-primary"><i class="bi bi-eye"></i></a>
-              <a href="#" class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
-              <a href="#" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Houlala</td>
-            <td>Anthony</td>
-            <td>06/09/2000</td>
-            <td>M.</td>
-            <td>24 rue des Ferrailleurs</td>
-            <td>77000</td>
-            <td>Melun</td>
-            <td>toto77@houlala.org</td>
-            <td>Formateur pour adultes</td>
-            <td>
-              <a href="#" class="btn btn-outline-primary"><i class="bi bi-eye"></i></a>
-              <a href="#" class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
-              <a href="#" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
-            </td>
-          </tr>
+          <?php
+          foreach ($stagiaires as $stagiaire) {
+            echo '<tr>';
+            echo '<th scope="row">' . $stagiaire['idStagiaire'] . '</th>';
+            echo '<td>' . $stagiaire['nomStagiaire'] . '</td>';
+            echo '<td>' . $stagiaire['prenomStagiaire'] . '</td>';
+            echo '<td>' . $stagiaire['dateNaisStagiaire'] . '</td>';
+            echo '<td>' . $stagiaire['civiliteStagiaire'] . '</td>';
+            echo '<td>' . $stagiaire['adressStagiaire'] . '</td>';
+            echo '<td>' . $stagiaire['cpVille'] . '</td>';
+            echo '<td>' . $stagiaire['nomVille'] . '</td>';
+            echo '<td>' . $stagiaire['mailStagiaire'] . '</td>';
+            echo '<td>' . $stagiaire['titreFormation'] . '</td>';
+            echo '<td>' . $stagiaire['acronyme'] . '</td>';
+            // TODO: afficher détails pour un étudiant grâce grâce à l'URL (GET)
+            echo '<td>';
+            echo   '<a href="stagiaire.php?id=' . $stagiaire['idStagiaire'] . '" class="btn btn-outline-primary"><i class="bi bi-eye"></i></a>';
+            echo   '<a href="#" class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>';
+            echo   '<a href="#" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>';
+            echo '</td>';
+            echo '</tr>';
+          }
+          ?>
         </tbody>
       </table>
     </div>
