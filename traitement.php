@@ -1,6 +1,6 @@
 <?php
 
-require_once'DBConnect.php';
+require_once 'DBConnect.php';
 
 $nom = htmlentities($_POST['nom'], ENT_QUOTES);
 $prenom = htmlentities($_POST['prenom'], ENT_QUOTES);
@@ -11,12 +11,39 @@ $ville = htmlentities($_POST['ville'], ENT_QUOTES);
 $mail = htmlentities($_POST['mail'], ENT_QUOTES);
 $formation = htmlentities($_POST['formation'], ENT_QUOTES);
 
+/* 
+if (isset($_POST['update'])) {
+  echo '<h2>J\'ai été appelé depuis la page update.php. 😋</h2>';
+} else if (isset($_POST['create'])) {
+  echo '<h2>J\'ai été appelé depuis la page create.php. 🤪</h2>';
+}
+ */
 
+/* INSERTION */
 /* Exécute une requête préparée en liant des variables et valeurs */
-$sql = 'INSERT INTO t_stagiaire (nomStagiaire, prenomStagiaire, dateNaisStagiaire, civiliteStagiaire, adressStagiaire, idVille, mailStagiaire, idFormation) VALUES(:nom, :prenom, :naissance, :civilite, :adresse, :idville, :mail, :idformation)';
+$create = 'INSERT INTO t_stagiaire (nomStagiaire, prenomStagiaire, dateNaisStagiaire, civiliteStagiaire, adressStagiaire, idVille, mailStagiaire, idFormation) VALUES(:nom, :prenom, :naissance, :civilite, :adresse, :idville, :mail, :idformation)';
+
+/* MISE A JOUR */
+$id = htmlspecialchars($_POST['idStagiaire']);
+$update = "
+  UPDATE t_stagiaire
+  SET nomStagiaire=:nom , prenomStagiaire=:prenom, dateNaisStagiaire=:naissance,
+  civiliteStagiaire=:civilite, adressStagiaire=:adresse, idVille=:idville,
+  mailStagiaire=:mail, idFormation=:idformation
+  WHERE idStagiaire=$id
+";
+
+// SELECTION de la requete appropriée
+
+if (isset($_POST['update'])) {
+  $sql = $update;
+} else if (isset($_POST['create'])) {
+  $sql = $create;
+}
+
+// PREPARATION de la requete
 
 $stmt = $dbh->prepare($sql);
-
 
 /*
 PDOStatement::bindValue() va remplacer telle étiquette par telle valeur.

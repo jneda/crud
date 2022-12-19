@@ -1,10 +1,11 @@
 <?php
-require_once'DBConnect.php';
+require_once 'DBConnect.php';
 ?>
 
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,13 +15,15 @@ require_once'DBConnect.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
+
 <body>
 
     <header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
         <div class="container-fluid d-flex align-items-center">
             <h1 class="d-flex align-items-center fs-4 text-white mb-0">
-            Liste des stagiaires
+                Liste des stagiaires
             </h1>
+            <a href="list.php" class="btn btn-outline-info ms-auto link-light">Retourner à la liste</a>
         </div>
     </header>
     <section class="container mt-5">
@@ -39,10 +42,10 @@ require_once'DBConnect.php';
                     <input type="text" class="form-control" id="DateNaissance" name="naissance" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
                 </div>
                 <div class="mb-3">
-                <label for="civilité" class="form-label">Choisir la civilité</label>
+                    <label for="civilité" class="form-label">Choisir la civilité</label>
                     <select class="form-select" name="civilite" aria-label="civilité">
-                        <option value="madame">Madame</option>
-                        <option value="monsieur">Monsieur</option>
+                        <option value="Mme">Madame</option>
+                        <option value="M.">Monsieur</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -52,13 +55,13 @@ require_once'DBConnect.php';
                 <div class="mb-3">
                     <label for="ville" class="form-label">Choisir la ville</label>
                     <?php
-                        $villes = $dbh->query('SELECT * from t_ville');                    
+                    $villes = $dbh->query('SELECT * from t_ville');
                     ?>
                     <select class="form-select" name="ville" aria-label="ville">
                         <option selected>...</option>
                         <?php
-                          foreach($villes as $ville) {
-                            echo '<option value='.$ville['idVille'].'>'.$ville['nomVille'].'</option>';
+                        foreach ($villes as $ville) {
+                            echo '<option value=' . $ville['idVille'] . '>' . $ville['nomVille'] . '</option>';
                         }
                         ?>
                     </select>
@@ -68,29 +71,30 @@ require_once'DBConnect.php';
                     <input type="email" class="form-control" id="mail" name="mail">
                 </div>
                 <div class="mb-3">
-                <label for="formation" class="form-label">Choisir la formation</label>
+                    <label for="formation" class="form-label">Choisir la formation</label>
                     <?php
-                        $formations = $dbh->query('SELECT * from t_formation');                                         
+                    $formations = $dbh->query('SELECT * from t_formation');
                     ?>
                     <select class="form-select" name="formation" aria-label="formation">
-                    <option selected>...</option>
-                    <?php
-                          foreach($formations as $formation) {
-                            echo '<option value='.$formation['idFormation'].'>'.$formation['titreFormation'].'</option>';
+                        <option selected>...</option>
+                        <?php
+                        foreach ($formations as $formation) {
+                            echo '<option value=' . $formation['idFormation'] . '>' . $formation['titreFormation'] . '</option>';
                         }
                         ?>
                     </select>
                 </div>
                 <?php
-                    // et maintenant, fermez-la !
-                    $dbh = null;
+                // et maintenant, fermez-la !
+                $dbh = null;
                 ?>
-                <button type="submit" class="btn btn-primary">Créer</button>
+                <button type="submit" class="btn btn-primary" name="create">Créer</button>
             </form>
         </div>
     </section>
 
-   <!-- JavaScript Bundle with Popper -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
+
 </html>
