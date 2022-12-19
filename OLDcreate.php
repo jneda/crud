@@ -1,8 +1,3 @@
-<?php
-require_once'DBConnect.php';
-?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,7 +18,7 @@ require_once'DBConnect.php';
             </h1>
         </div>
     </header>
-    <section class="container mt-5">
+    <section class="container my-5">
         <div class="row">
             <form action="traitement.php" method="POST" class="col-md-6 offset-md-3">
                 <div class="mb-3">
@@ -36,7 +31,7 @@ require_once'DBConnect.php';
                 </div>
                 <div class="mb-3">
                     <label for="DateNaissance" class="form-label">Date de Naissance du stagiaire</label>
-                    <input type="text" class="form-control" id="DateNaissance" name="naissance" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
+                    <input type="text" class="form-control" id="DateNaissance" name="naissance" placeholder="YYYY-MM-JJ" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
                 </div>
                 <div class="mb-3">
                 <label for="civilité" class="form-label">Choisir la civilité</label>
@@ -50,17 +45,11 @@ require_once'DBConnect.php';
                     <input type="text" class="form-control" id="Adresse" name="adresse">
                 </div>
                 <div class="mb-3">
-                    <label for="ville" class="form-label">Choisir la ville</label>
-                    <?php
-                        $villes = $dbh->query('SELECT * from t_ville');                    
-                    ?>
+                <label for="ville" class="form-label">Choisir la ville</label>
                     <select class="form-select" name="ville" aria-label="ville">
                         <option selected>...</option>
-                        <?php
-                          foreach($villes as $ville) {
-                            echo '<option value='.$ville['idVille'].'>'.$ville['nomVille'].'</option>';
-                        }
-                        ?>
+                        <option value='1'>Montpellier</option>
+                        <option value='2'>Paris</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -69,16 +58,11 @@ require_once'DBConnect.php';
                 </div>
                 <div class="mb-3">
                 <label for="formation" class="form-label">Choisir la formation</label>
-                    <?php
-                        $formations = $dbh->query('SELECT * from t_formation');                                         
-                    ?>
                     <select class="form-select" name="formation" aria-label="formation">
-                    <option selected>...</option>
-                    <?php
-                          foreach($formations as $formation) {
-                            echo '<option value='.$formation['idFormation'].'>'.$formation['titreFormation'].'</option>';
-                        }
-                        ?>
+                        <option selected>...</option>
+                        <option value='1'>Developpeur web & web mobile</option>
+                        <option value='2'>Concepteur Développeur d'application</option>
+                        <option value='3'>Technicien d'Assistance Informatique</option>
                     </select>
                 </div>
                 <?php
