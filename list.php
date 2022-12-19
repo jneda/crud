@@ -64,7 +64,7 @@
                                 echo '<td>
                                 <a href="stagiaire.php?id='.$stagiaire['idStagiaire'].'" class="btn btn-outline-primary"><i class="bi bi-eye"></i></a>
 
-                                <a href="#" class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
+                                <a href="update.php?id='. $stagiaire['idStagiaire'] .'" class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
                                 
                                 <a href="#" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
                                 </td>';
