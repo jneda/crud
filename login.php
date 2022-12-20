@@ -26,7 +26,7 @@
 
   <?php
 
-  var_dump($_POST);
+  // var_dump($_POST);
 
   function sanitizeInput($data)
   {
@@ -42,7 +42,7 @@
     $login = sanitizeInput($_POST['login']);
     $password = sanitizeInput($_POST['password']);
 
-    var_dump([$login, $password]);
+    // var_dump([$login, $password]);
 
     if (!empty($login) && !empty($password)) {
       $inputIsValid = true;
@@ -62,14 +62,21 @@
       'login' => $login
     ]);
 
+    // var_dump($ok);
+
     if (!$ok) {
-      die('<p>Échec de l\'écriture dans la base de données. 😑</p>');
+      die('<p>Échec de la lecture dans la base de données. 😑</p>');
     }
     
     $userData = $stmt->fetch();
-    var_dump($userData);
+    // var_dump($userData);
+
+    if (!$userData) {
+      die('<p>Identifiant inconnu. 😑</p>');
+    }
+
     $hash = $userData['password'];
-    var_dump($hash);
+    // var_dump($hash);
 
     if (!password_verify($password, $hash)) {
       die('<p>Échec de l\'authentification. 😑</p>');
