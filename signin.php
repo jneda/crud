@@ -26,7 +26,7 @@
 
   <?php
 
-  var_dump($_POST);
+  // var_dump($_POST);
 
   function sanitizeInput($data)
   {
@@ -42,7 +42,7 @@
     $login = sanitizeInput($_POST['login']);
     $password = sanitizeInput($_POST['password']);
 
-    var_dump([$login, $password]);
+    // var_dump([$login, $password]);
 
     if (!empty($login) && !empty($password)) {
       $inputIsValid = true;
@@ -52,11 +52,34 @@
   // $inputIsValid = !empty($_POST) && !empty($_POST['login']) && !empty($_POST['password']);
 
   if ($inputIsValid) {
+    require 'DBConnect.php';
+    
+    // check if user exists
+    $sql = 'SELECT password FROM t_user WHERE t_user.login = :login;';
+
+    $stmt = $dbh->prepare($sql);
+    $ok = $stmt->execute([
+      'login' => $login
+    ]);
+
+    // var_dump($ok);
+
+    if (!$ok) {
+      die('<p>Échec de la lecture dans la base de données. 😑</p>');
+    }
+    
+    $userData = $stmt->fetch();
+    // var_dump($userData);
+
+    if ($userData) {
+      die('<p>Cet identifiant est déjà utilisé. 😑</p>');
+    }
+
+    // enregistrement dans la BDD
+
     // hash password
     $hash = password_hash($password, PASSWORD_BCRYPT);
-    var_dump($hash);
-
-    require 'DBConnect.php';
+    // var_dump($hash);
 
     $sql = 'INSERT INTO t_user (login, password) VALUES (:login, :password);';
 
