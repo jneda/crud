@@ -33,6 +33,8 @@ $stagiaires = $query->fetchAll();
                 Liste des stagiaires
             </h1>
             <a href="create.php" class="btn btn-outline-info ms-auto link-light">Créer un stagiaire</a>
+            <a href="cities.php" class="btn btn-outline-info ms-auto link-light">Liste des villes</a>
+            <a href="courses.php" class="btn btn-outline-info ms-auto link-light">Liste des formations</a>
         </div>
     </header>
     <section class="container my-5">
