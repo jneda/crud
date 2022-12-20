@@ -23,6 +23,60 @@
       <!-- <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a> -->
     </div>
   </header>
+
+  <?php
+
+  var_dump($_POST);
+
+  function sanitizeInput($data)
+  {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
+
+  $inputIsValid = false;
+
+  if (!empty($_POST)) {
+    $login = sanitizeInput($_POST['login']);
+    $password = sanitizeInput($_POST['password']);
+
+    var_dump([$login, $password]);
+
+    if (!empty($login) && !empty($password)) {
+      $inputIsValid = true;
+    }
+  }
+
+  // $inputIsValid = !empty($_POST) && !empty($_POST['login']) && !empty($_POST['password']);
+
+  if ($inputIsValid) {
+    // hash password
+    $hash = password_hash($password, PASSWORD_BCRYPT);
+    var_dump($hash);
+
+    require 'DBConnect.php';
+
+    $sql = 'INSERT INTO t_user (login, password) VALUES (:login, :password);';
+
+    $stmt = $dbh->prepare($sql);
+    $ok = $stmt->execute([
+      'login' => htmlspecialchars($_POST['login']),
+      'password' => $hash
+    ]);
+
+    if (!$ok) {
+      die('<p>Échec de l\'écriture dans la base de données. 😑</p>');
+    } else {
+      require 'success.php';
+      // header('Location: list.php');
+    }
+  }
+
+  ?>
+
+
   <section class="container mt-5">
     <div class="row">
       <form action="" method="POST" class="col-md-6 offset-md-3">
@@ -38,12 +92,8 @@
           <label for="passwordConfirm" class="form-label">Confirmer le mot de passe</label>
           <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
         </div> -->
-        <?php
-        // et maintenant, fermez-la !
-        $dbh = null;
-        ?>
         <div class="mb-3">
-          <button type="submit" class="btn btn-primary" name="signin">S'enregistrer</button>
+          <button type="submit" class="btn btn-primary">S'enregistrer</button>
         </div>
       </form>
     </div>
