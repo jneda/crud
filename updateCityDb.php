@@ -8,9 +8,9 @@ if (!isset($_POST) || empty($_POST)) {
 
 var_dump($_POST);
 
-$cityId = htmlentities($_POST['cityId']);
-$cityName = htmlentities($_POST['cityName']);
-$zipCode = htmlentities($_POST['zipCode']);
+$cityId = htmlspecialchars($_POST['cityId']);
+$cityName = htmlspecialchars($_POST['cityName']);
+$zipCode = htmlspecialchars($_POST['zipCode']);
 
 $sql = '
   UPDATE t_ville
