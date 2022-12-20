@@ -35,6 +35,8 @@ $stagiaires = $query->fetchAll();
             <a href="create.php" class="btn btn-outline-info ms-auto link-light">Créer un stagiaire</a>
             <a href="cities.php" class="btn btn-outline-info ms-auto link-light">Liste des villes</a>
             <a href="courses.php" class="btn btn-outline-info ms-auto link-light">Liste des formations</a>
+            <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+            <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
         </div>
     </header>
     <section class="container my-5">

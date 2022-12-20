@@ -24,6 +24,8 @@ require_once 'DBConnect.php';
                 Liste des stagiaires
             </h1>
             <a href="list.php" class="btn btn-outline-info ms-auto link-light">Retourner à la liste</a>
+            <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+            <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
         </div>
     </header>
     <section class="container mt-5">

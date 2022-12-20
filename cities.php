@@ -32,6 +32,8 @@ $cities = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </h1>
       <a href="createCity.php" class="btn btn-outline-info ms-auto link-light">Ajouter une ville</a>
       <a href="list.php" class="btn btn-outline-info ms-auto link-light">Liste des stagiaires</a>
+      <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+      <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
     </div>
   </header>
   <section class="container my-5">
