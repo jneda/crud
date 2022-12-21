@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+var_dump($_SESSION);
+
 require_once 'DBConnect.php';
 
 $nom = htmlentities($_POST['nom'], ENT_QUOTES);

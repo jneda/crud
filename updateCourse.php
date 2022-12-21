@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+var_dump($_SESSION);
+
+$userAuthenticated = false;
+if (!empty($_SESSION['user'])) {
+    $userAuthenticated = true;
+}
+
 require_once 'DBConnect.php';
 
 if (!isset($_GET) || empty($_GET)) {
@@ -19,7 +27,7 @@ $ok = $stmt->execute([
 
 if (!$ok) {
   die('<p style="colore: red;">Erreur d\'accès à la base de données ! 🤬</p>');
-} 
+}
 
 $course = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -53,13 +61,24 @@ $dbh = null;
         Modifier une formation
       </h1>
       <a href="courses.php" class="btn btn-outline-info ms-auto link-light">Liste des formations</a>
+      <?php if ($userAuthenticated) { ?>
+        <a href="logout.php" class="btn btn-outline-info ms-auto link-light">Se déconnecter</a>
+      <?php } else { ?>
+        <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+        <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+      <?php } ?>
     </div>
   </header>
   <section class="container mt-5">
+    <?php if (!empty($_SESSION['user'])) { ?>
+      <div class="row">
+        <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
+      </div>
+    <?php } ?>
     <div class="row">
       <form action="updateCourseDb.php" method="POST" class="col-md-6 offset-md-3">
-      <input type="hidden" name="courseId" value="<?= $courseId ?>">  
-      <div class="mb-3">
+        <input type="hidden" name="courseId" value="<?= $courseId ?>">
+        <div class="mb-3">
           <label for="courseName" class="form-label">Libellé</label>
           <input type="text" class="form-control" id="courseName" name="courseName" value="<?= htmlspecialchars_decode($courseName) ?>">
         </div>

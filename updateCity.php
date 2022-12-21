@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+var_dump($_SESSION);
+
+$userAuthenticated = false;
+if (!empty($_SESSION['user'])) {
+    $userAuthenticated = true;
+}
+
 require_once 'DBConnect.php';
 
 // var_dump($_GET);
@@ -49,8 +57,19 @@ $zipCode = htmlentities($result['cpVille']);
         Modifier une ville
       </h1>
       <a href="cities.php" class="btn btn-outline-info ms-auto link-light">Liste des villes</a>
+      <?php if ($userAuthenticated) { ?>
+        <a href="logout.php" class="btn btn-outline-info ms-auto link-light">Se déconnecter</a>
+      <?php } else { ?>
+        <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+        <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+      <?php } ?>
     </div>
   </header>
+  <?php if (!empty($_SESSION['user'])) { ?>
+    <div class="row">
+      <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
+    </div>
+  <?php } ?>
   <section class="container mt-5">
     <div class="row">
       <form action="updateCityDb.php" method="POST" class="col-md-6 offset-md-3">

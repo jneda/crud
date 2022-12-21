@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+var_dump($_SESSION);
+
+$userAuthenticated = false;
+if (!empty($_SESSION['user'])) {
+    $userAuthenticated = true;
+}
+
 require_once 'DBConnect.php';
 
 $sql = 'SELECT * FROM t_formation';
@@ -32,11 +40,20 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </h1>
       <a href="createCourse.php" class="btn btn-outline-info ms-auto link-light">Ajouter une formation</a>
       <a href="list.php" class="btn btn-outline-info ms-auto link-light">Liste des stagiaires</a>
-      <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
-      <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+      <?php if ($userAuthenticated) { ?>
+        <a href="logout.php" class="btn btn-outline-info ms-auto link-light">Se déconnecter</a>
+      <?php } else { ?>
+        <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+        <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+      <?php } ?>
     </div>
   </header>
   <section class="container my-5">
+    <?php if (!empty($_SESSION['user'])) { ?>
+      <div class="row">
+        <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
+      </div>
+    <?php } ?>
     <div class="row">
       <table class="table table-striped">
         <thead>

@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+var_dump($_SESSION);
+
+$userAuthenticated = false;
+if (!empty($_SESSION['user'])) {
+    $userAuthenticated = true;
+}
+
 require_once 'DBConnect.php';
 ?>
 
@@ -24,11 +33,20 @@ require_once 'DBConnect.php';
                 Liste des stagiaires
             </h1>
             <a href="list.php" class="btn btn-outline-info ms-auto link-light">Retourner à la liste</a>
-            <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
-            <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+            <?php if ($userAuthenticated) { ?>
+                <a href="logout.php" class="btn btn-outline-info ms-auto link-light">Se déconnecter</a>
+            <?php } else { ?>
+                <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+                <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+            <?php } ?>
         </div>
     </header>
     <section class="container mt-5">
+        <?php if (!empty($_SESSION['user'])) { ?>
+            <div class="row">
+                <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
+            </div>
+        <?php } ?>
         <div class="row">
             <form action="traitement.php" method="POST" class="col-md-6 offset-md-3">
                 <div class="mb-3">

@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+var_dump($_SESSION);
+
+$userAuthenticated = false;
+if (!empty($_SESSION['user'])) {
+  $userAuthenticated = true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -19,13 +31,16 @@
         Se connecter
       </h1>
       <a href="list.php" class="btn btn-outline-info ms-auto link-light">Retourner à la liste</a>
-      <!-- <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a> -->
-      <!-- <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a> -->
+      <?php if ($userAuthenticated) { ?>
+        <a href="logout.php" class="btn btn-outline-info ms-auto link-light">Se déconnecter</a>
+      <?php } else { ?>
+        <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+        <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+      <?php } ?>
     </div>
   </header>
 
   <?php
-
   // var_dump($_POST);
 
   function sanitizeInput($data)
@@ -55,7 +70,7 @@
 
     require 'DBConnect.php';
 
-    $sql = 'SELECT password FROM t_user WHERE t_user.login = :login;';
+    $sql = 'SELECT * FROM t_user WHERE t_user.login = :login;';
 
     $stmt = $dbh->prepare($sql);
     $ok = $stmt->execute([
@@ -67,7 +82,7 @@
     if (!$ok) {
       die('<p>Échec de la lecture dans la base de données. 😑</p>');
     }
-    
+
     $userData = $stmt->fetch();
     // var_dump($userData);
 
@@ -75,20 +90,28 @@
       die('<p>Identifiant inconnu. 😑</p>');
     }
 
-    $hash = $userData['password'];
+    $hash = sanitizeInput($userData['password']);
     // var_dump($hash);
 
     if (!password_verify($password, $hash)) {
       die('<p>Échec de l\'authentification. 😑</p>');
     } else {
+      $_SESSION['user'] = [
+        'id' => sanitizeInput($userData['id_user']),
+        'login' => sanitizeInput($userData['login'])
+      ];
       require 'success.php';
     }
   }
 
   ?>
 
-
   <section class="container mt-5">
+    <?php if (!empty($_SESSION['user'])) { ?>
+      <div class="row">
+        <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
+      </div>
+    <?php } ?>
     <div class="row">
       <form action="" method="POST" class="col-md-6 offset-md-3">
         <div class="mb-3">

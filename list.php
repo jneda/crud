@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+var_dump($_SESSION);
+
+$userAuthenticated = false;
+if (!empty($_SESSION['user'])) {
+    $userAuthenticated = true;
+}
+
 require_once 'DBConnect.php';
 
 $query = $dbh->prepare("
@@ -35,11 +44,20 @@ $stagiaires = $query->fetchAll();
             <a href="create.php" class="btn btn-outline-info ms-auto link-light">Créer un stagiaire</a>
             <a href="cities.php" class="btn btn-outline-info ms-auto link-light">Liste des villes</a>
             <a href="courses.php" class="btn btn-outline-info ms-auto link-light">Liste des formations</a>
-            <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
-            <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+            <?php if ($userAuthenticated) { ?>
+                <a href="logout.php" class="btn btn-outline-info ms-auto link-light">Se déconnecter</a>
+            <?php } else { ?>
+                <a href="signin.php" class="btn btn-outline-info ms-auto link-light">S'inscrire</a>
+                <a href="login.php" class="btn btn-outline-info ms-auto link-light">Se connecter</a>
+            <?php } ?>
         </div>
     </header>
     <section class="container my-5">
+        <?php if (!empty($_SESSION['user'])) { ?>
+            <div class="row">
+                <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
+            </div>
+        <?php } ?>
         <div class="row">
             <table class="table table-striped">
                 <thead>
