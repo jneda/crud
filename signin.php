@@ -55,6 +55,10 @@ if (!empty($_SESSION['user'])) {
 
   if (!empty($_POST)) {
     $login = sanitizeInput($_POST['login']);
+    // check if login is not too long
+    if (strlen($login) > 60) {
+      die('Votre identifiant est trop long... 🥲');
+    }
     $password = sanitizeInput($_POST['password']);
 
     // var_dump([$login, $password]);
