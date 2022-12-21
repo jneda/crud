@@ -108,13 +108,19 @@ if (!empty($_SESSION['user'])) {
         'login' => sanitizeInput($userData['login'])
       ];
       var_dump($_SESSION);
-      require 'success.php';
+      header('location: login.php?status=login-success&');
     }
   }
 
   ?>
 
   <section class="container mt-5">
+    <?php
+    if (!empty($_GET) && $_GET['status'] === 'login-success') {
+      $login = sanitizeInput($_SESSION['user']['login']);
+      require 'success.php';
+    }
+    ?>
     <?php if (!empty($_SESSION['user'])) { ?>
       <div class="row">
         <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>

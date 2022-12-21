@@ -53,6 +53,14 @@ $stagiaires = $query->fetchAll();
         </div>
     </header>
     <section class="container my-5">
+        <?php if (!empty($_GET) && $_GET['status'] === 'logout-success') { ?>
+            <section class="container mt-3">
+                <div class="row col-md-6 offset-md-3 alert alert-success">
+                    <h1>Vous êtes bien déconnecté</h1>
+                    <p>L'opération est un succès !🥳</p>
+                </div>
+            </section>
+        <?php } ?>
         <?php if (!empty($_SESSION['user'])) { ?>
             <div class="row">
                 <p>Bonjour <b><?= $_SESSION['user']['login'] ?></b> !</p>
