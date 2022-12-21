@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 $userAuthenticated = false;
 if (!empty($_SESSION['user'])) {
@@ -43,6 +43,7 @@ if (!empty($_SESSION['user'])) {
   <?php
   // var_dump($_POST);
 
+  // utility function
   function sanitizeInput($data)
   {
     $data = trim($data);
@@ -51,6 +52,7 @@ if (!empty($_SESSION['user'])) {
     return $data;
   }
 
+  // check if user input is valid
   $inputIsValid = false;
 
   if (!empty($_POST)) {
@@ -66,10 +68,12 @@ if (!empty($_SESSION['user'])) {
 
   // $inputIsValid = !empty($_POST) && !empty($_POST['login']) && !empty($_POST['password']);
 
+
   if ($inputIsValid) {
 
     require 'DBConnect.php';
 
+    // get user data
     $sql = 'SELECT * FROM t_user WHERE t_user.login = :login;';
 
     $stmt = $dbh->prepare($sql);
@@ -86,20 +90,24 @@ if (!empty($_SESSION['user'])) {
     $userData = $stmt->fetch();
     // var_dump($userData);
 
+    // exit if user does not exist
     if (!$userData) {
       die('<p>Identifiant inconnu. 😑</p>');
     }
 
+    // check if password matches hash
     $hash = sanitizeInput($userData['password']);
     // var_dump($hash);
 
     if (!password_verify($password, $hash)) {
       die('<p>Échec de l\'authentification. 😑</p>');
     } else {
+      var_dump($_SESSION);
       $_SESSION['user'] = [
         'id' => sanitizeInput($userData['id_user']),
         'login' => sanitizeInput($userData['login'])
       ];
+      var_dump($_SESSION);
       require 'success.php';
     }
   }
